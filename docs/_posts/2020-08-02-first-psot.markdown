@@ -102,6 +102,10 @@ Deploying
 Next step will be pushing this up to github to see if it publishes
 correctly to the site. :fingers_crossed:
 
+Learnings:
+* the `source` field in _config.xml is not supported.  So the jekyll content will need to be at the root of the repo or in `/docs`. [ [citation][source-citation] ]
+* urls are case sensitive when github hosted, but not in the local jekyll. Sorry favicon404.PNG
+
 
 Aside: The road not taken
 ----
@@ -114,3 +118,4 @@ if I get stuck I can make a separate tutorial account.
 
 [github intro]: https://docs.github.com/en/github/working-with-github-pages/creating-a-github-pages-site
 [jekyll windows]: https://jekyllrb.com/docs/installation/windows/
+[source-citation]: https://docs.github.com/en/github/working-with-github-pages/troubleshooting-jekyll-build-errors-for-github-pages-sites#troubleshooting-build-errors
