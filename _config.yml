@@ -1,1 +1,14 @@
-theme: jekyll-theme-minimal
+title: Jett
+description: >-
+  development, politics, and puzzles.
+baseurl: "/" # the subpath of your site, e.g. /blog
+source: "web"
+url: "" # the base hostname & protocol for your site, e.g. http://example.com
+github_username:  JettJones
+rss: feed.xml
+
+# Build settings
+theme: minima
+# theme: jekyll-theme-minimal
+plugins:
+  - jekyll-feed
