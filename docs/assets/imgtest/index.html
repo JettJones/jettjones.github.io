@@ -1,0 +1,41 @@
+<!DOCTYPE HTML>
+<html>
+  <head>
+    <link rel="stylesheet" href="main.css" />
+  </head>
+  <body>
+    <canvas id="image" width="500px", height="500px" style="border:
+                                                            3px solid black;">
+    </canvas>
+    <canvas id="output" width="500px", height="500px" style="border:
+                                                            3px solid green;">
+    </canvas>
+    <div>
+      <a id="download" download="imgtest.png" href="">Download</a>
+      <button id="redraw">Redraw</button>
+      <button id="luminance">Grey</button>
+      <button id="edge">Edge</button>
+    </div>
+    <div>
+      <label for="select_brush">Brush</label>
+      <select id="select_brush">
+        <option>Line</option>
+        <option>Circle</option>
+        <option>Pixel</option>
+      </select>
+
+      <label for="width"> Width </label>
+      <input type="number" name="width" id="width" min="1" max="5"
+             value="2">
+
+      <label for="space"> Spacing </label>
+      <input type="number" name="space" id="space" min="1" max="10"
+             value="4">
+
+      <label for="offset"> Offset </label>
+      <input type="checkbox" name="offset" id="offset" checked>
+    </div>
+
+    <script src="imgtest.js"></script>
+  </body>
+</html>
