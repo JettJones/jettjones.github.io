@@ -36,11 +36,25 @@ function get_settings() {
         offset.checked);
 }
 
-// create the image
-var img = new Image();
-img.onload = function() {
-    inctx.drawImage(img, 0, 0);
+function load_image(img) {
+    var x, y;
+    if (img.naturalHeight > img.naturalWidth) {
+        var ratio = img.naturalWidth / img.naturalHeight;
+        y = 500;
+        x = Math.floor(ratio * y);
+    } else {
+        var ratio = img.naturalHeight / img.naturalWidth;
+        x = 500;
+        y = Math.floor(ratio * x);
+    }
+    canvas.width = x;
+    canvas.height = y;
+    output.width = x;
+    output.height = y;
+    inctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+}
 
+function shift_color() {
     var pixel = inctx.getImageData(0, 0, canvas.width, canvas.height);
     var data = pixel.data;
 
@@ -55,6 +69,13 @@ img.onload = function() {
         data[i + 2] = avg;
     }
     ctx.putImageData(pixel, 0, 0);
+}
+
+// create the image
+var img = new Image();
+img.onload = function() {
+    load_image(img);
+    shift_color();
 }
 img.src = "test.png";
 
@@ -269,3 +290,50 @@ link.addEventListener('click', to_image);
 button.addEventListener('click', redraw);
 lum_button.addEventListener('click', show_lum);
 edge_button.addEventListener('click', show_edge);
+
+
+// allow new images
+
+function no_event(e) {
+    e.stopPropagation();
+    e.preventDefault();
+}
+
+function drag_enter(e) {
+    no_event(e);
+    canvas.style.border = "5px dashed red";
+    e.target.opacity = 0.8;
+}
+
+function drag_leave(e) {
+    no_event(e);
+    canvas.style.border = "3px solid black";
+}
+
+function drop_event(e) {
+    drag_leave(e);
+
+    const supported = ["Files"];
+    const types = e.dataTransfer.types.filter(type => supported.includes(type));
+
+    if (types.length) {
+        var reader = new FileReader();
+        reader.onload = function(evt) {
+            var img = new Image();
+            img.onload = function() {
+                load_image(img);
+            };
+
+            img.src = evt.target.result;
+        };
+        reader.readAsDataURL(e.dataTransfer.files[0]);
+    }
+}
+
+var body = document.body;
+
+canvas.ondragenter = drag_enter;
+canvas.ondragleave = drag_leave;
+canvas.ondragover = no_event;
+
+canvas.addEventListener('drop', drop_event);
