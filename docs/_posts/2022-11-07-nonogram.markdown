@@ -1,0 +1,45 @@
+---
+layout: post
+title:  "Nonogram viewer"
+date:   2022-11-07 14:30:00 -0800
+categories: dev
+---
+
+Nonogram time!  These paint by number puzzles, (sometimes picross if you're Nintendo) show up frequently in puzzle events,
+and there's a sea of steam games with these drawings as the main mechanic.  And now there's one more way to play them, embedded in this website:
+
+>   [Nonogram viewer][nono]
+
+You can select a local .non file for the site to render - then left click + right click will fill or X a square as you go.  Click again to clear.
+
+## Where can I find nonogram files?
+
+- [nonogram-db][nonogram-db] Here on github I found a simple file format with a few related samples.
+- [Web Paint-By-Number][webpbn] also has a sea of puzzles and an export function.
+
+A small set of nonograms I set for other events:
+- Must Resemble Blocks [1][blocks_1] [2][blocks_2] [3][blocks_3] [4][blocks_4]
+
+## Project notes
+
+This project was tangentially combining a few interests.
+
+- local first apps - this runs on data you have locally, no need to upload or have any backing server at all.
+- React tutorial - the UI has not moved very from from the tic-tac-toe react tutorial.  This is my first attempt at a javascript framework and it went ok.  I expect I'll have to double down on understanding the build process to feel very capable.
+
+
+### Learnings
+
+ - CSS is still fun - want to highlight the current row? :hover makes this trivially easy.  Want to highlight the current column? You're on your own.  I followed a stackoverflow suggestion for a clipped z-ordered background rectangle.
+
+ - React I'm not confident in.  I suspect the solving grid is still re-rending more than strictly necessary, and getting by because the app is so simple.
+
+[nono]: /nono/
+[nonogram-db]: https://github.com/mikix/nonogram-db/tree/master/db/gnonograms
+[webpbn]: https://webpbn.com/export.cgi
+
+[blocks_1]: /assets/puzzfile/blocks_1.non
+[blocks_2]: /assets/puzzfile/blocks_2.non
+[blocks_3]: /assets/puzzfile/blocks_3.non
+[blocks_4]: /assets/puzzfile/blocks_4.non
+	
