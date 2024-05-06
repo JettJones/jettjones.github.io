@@ -1,0 +1,86 @@
+---
+layout: post
+title:  "Jpeg parsing"
+date:   2024-05-05 21:30:00 -0800
+categories: dev
+---
+
+Not puzzle related, but this is from awhile playing with file formats.  To jump to the end, here is
+the running version - if you drag an image in, it will parse out the sections to the console.
+
+>   [Jpeg loader][jpeg]
+
+This is an incomplete parser - that is, it won't convert the image back to pixels.  I want to
+map the segments of the source file to pieces of the jpeg pipeline, so as a first milestone each
+necessary section of the file is parsed out.
+
+## Wait but why?
+
+There are already plenty of number of jpeg parsers, and even plenty of blog posts explaining the format. What am I adding?
+
+* *the whale* - partly because I had a hard to explain side project long ago: to be able to generate images of an exact size.  This attaches both to testing and file formats courses from the distant past.  So a lot can be pinned on fuzzing-style curiousity of what happens when the headers are slightly wrong.
+
+* *it was hard* - When I started this in the past, I would find the [enormouse spec][jpeg_spec] or [sprawling c implementation][c_turbojpg] and fail to make much traction, so much of the reason to keep coming back was because it kept proving so difficult.
+
+* *ui playground* - my background is largely in servers, so javascript is usually not in scope.  So a chance to play with css, and highlights, and local-only websites is a fun stretch.
+
+* *ai testing* - these assistants exist, so I wanted a scoped non-work project to see how coding with one went.
+
+So... nerdy excuses! moving on.
+
+## Learnings
+
+- Coding copilots are quite bad at giving factual information.  Asking for the jpeg standard, or a list of
+ headings, or even explaining a huffman table and it would make up adjacent or incomplete information. 
+
+- But copilots are better at explaining code, and repeating patterns. Once my code had Y, Cb, Cr pixel manipulation, the generated routines were often pretty close.
+
+Things that surpised me about the jpeg spec at various points:
+
+- The Huffman table spec is (cleverly) order based, so it can leave out a third of the detail.  It only says how long codes are, what they decode to, and assumes everyone generates segments in the same order. see [this tutorial][huff_tutorial] (archive link because the live site is v. broken).
+
+- I was at various times ignoring the content of the start-of-frame and start-of-scan segments.  But tracking some parsing errors in sample libraries, I discovered that the component map gives distinct multipliers for independent colors: so there could be 4 times more red pixel data than blue.  Typically there's more brightness detail than either of the colors - and this very much impacts what order to extracted data from the scan.
+
+- Jpegs always give data that's a multiple of 8 - if the image size doesn't match, there's just 1-7 extra rows of pixels encoded but never displayed.
+
+- Armed with a more complete list of jpeg section headers - I found that 90% of them are not used in any of the samples I had on hand. (Maybe some exciting jpegs have thumbnails and progressive scans, but it seems uncommon).
+
+## Jpeg summary?
+
+I should use a larger article to do this justice, but check [Unraveling the JPEG][unravel] for very nice interactive exploration.
+
+I also think most tutorials go from the pixels to the file, which was less helpul for my goals of understanding / messing with the file contents.  So to summarize in the order I understand it.
+
+A jpeg file is:
+
+- A series of headers saying how to read the final contents.
+  - Quantization tables (a table of 64 multiplers)
+  - Huffman tables (how to decode the bits from the file into another 64 values to multiply)
+  - Frame and scan header: describe the order in which to use those two tables.
+
+- A long scan section which describes blocks. These define an 8x8 block of pixels (or a small multiple).
+  - Each block is given as luminance and then blue + red color sections.  Green is calculated from those three.
+  - There's an application of the discrete cosine transform in each block - so instead each value representing one pixel, we calculate an average (luminance or color component) and then say how other pixels differ from that base. 
+  - So the steps are: decode a set of numbers, multiply by a quantization matrix, and then convert with the discrete cosine transform (inverse) to get back to a the block of pixels.
+  - Then those steps repeat for all the color components, and repeat further for all the image blocks to make the full image.
+
+
+### References
+
+- [Jpeg spec (w3c)][jpeg_spec]
+- [Unraveling the jpeg][unravel]
+- [Understanding and writing jpec decoder][yasoob_me]
+- [Github: Baseline-JPEG-Decoder][github_yasoob]
+- [Github: micro-jpeg-visualizer][github_aguaviva]
+
+Note that both github repositories seem to come from the same source, because they include the same issue parsinge files with sub-sampling.
+
+[jpeg]: /assets/jpgbyte/
+
+[huff_tutorial]: https://web.archive.org/web/20220115065732/https://www.impulseadventure.com/photo/jpeg-huffman-coding.html
+[jpeg_spec]: https://www.w3.org/Graphics/JPEG/itu-t81.pdf
+[c_turbojpg]: https://github.com/libjpeg-turbo/libjpeg-turbo
+[unravel]: https://parametric.press/issue-01/unraveling-the-jpeg/
+[yasoob_me]: https://yasoob.me/posts/understanding-and-writing-jpeg-decoder-in-python/
+[github_yasoob]: https://github.com/yasoob/Baseline-JPEG-Decoder
+[github_aguaviva]: https://github.com/aguaviva/micro-jpeg-visualizer

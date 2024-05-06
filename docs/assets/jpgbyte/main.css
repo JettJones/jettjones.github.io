@@ -1,0 +1,21 @@
+body {
+    background-color: palegoldenrod;
+}
+#bytes {
+    font-family: monospace;
+    overflow-wrap: break-word;
+    max-width: 30em;
+}
+:target {
+    background:orange;
+}
+
+.row {
+    display: flex;
+    height: 50vh;
+    overflow: auto;
+  }
+  
+  .column {
+    flex: 50%;
+  }
