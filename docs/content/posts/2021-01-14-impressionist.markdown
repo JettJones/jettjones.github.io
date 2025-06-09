@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  "Javascript impressionist"
-date:   2021-1-14 14:30:00 -0800
+date:   2021-01-14 14:30:00 -0800
 categories: dev
 ---
 
@@ -32,4 +32,3 @@ In javascript this takes the pixels from one canvas as samples and renders them 
 [image-toy]: /assets/imgtest/
 [moz-canvas]: https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D
 [moz-save]: https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Pixel_manipulation_with_canvas#saving_images
-
