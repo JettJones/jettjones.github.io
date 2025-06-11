@@ -38,9 +38,9 @@ address bar. Yes, I could make an empty icon file, but I was curious
 if there was a tag to tell browsers to skip the download
 entirely. Turns out, kind of:
 
-{% highlight html %}
+```html
   <link rel="icon" href="data:;base64,=">
-{% endhighlight %}
+```
 
 This is an empty body of the icon file, encoded directly in the html
 head section. No extra requests, no 404s.
@@ -66,7 +66,7 @@ ultimate trouble than debugging with github rendering pages remotely.
    don't really understand this suggestion, but `jekyll new` and
    `jekyll serve` seem to work directly.
 
- ** update - when setting up for both local testing and github
+ * update - when setting up for both local testing and github
     building, the default jekyll new setup changes - and bundler is
     used afterward to pull the correct set of dependencies. Also, this
     config introduces a mismatch in the i18n library version, and
@@ -82,10 +82,10 @@ https://jekyllrb.com/docs/themes/#overriding-theme-defaults
 
 found the files in the ruby install...
 
-{% highlight bash %}
+```bash
   $ bundle info --path minima
   C:/Ruby26-x64/lib/ruby/gems/2.6.0/gems/minima-2.5.1
-{% endhighlight %}
+```
 
 Follow those paths, find _includes/head.html - copy that into my
 project, and add the link icon ... but no dice, rendered files under
