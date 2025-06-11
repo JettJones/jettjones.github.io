@@ -1,7 +1,8 @@
 Something like a personal blog.  Live at https://jettjones.github.io
 
 ## Local debug
+running: [gethugo](https://gohugo.io/)
 
 ```
-bundle exec jekyll serve
+hugo server
 ```
