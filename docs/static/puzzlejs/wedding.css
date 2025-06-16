@@ -1,0 +1,12 @@
+.title {
+    font-size: 1.5em;
+    font-weight: bold;
+    border-right-style: solid;
+    padding-right: 0.5em;
+    margin-right: 0.25em;
+}
+
+.puzzle-dot-list > div {
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
+}
