@@ -10,3 +10,36 @@
     margin-top: 0.5em;
     margin-bottom: 0.5em;
 }
+
+.wordsearch-color .cell[data-spoke-code]:not([data-spoke-code="0"]) { background: lightgray; }
+
+.big-example {
+    --puzzle-cell-size: 120px;
+}
+
+.big-example  .cell {
+    font-size: 1.2em;
+    text-transform: unset;
+    padding: 0.5em;
+}
+
+.ring {
+    position: relative;
+    z-index: 1;
+}
+
+.ring::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 1em;         /* adjust size */
+    height: 1em;        /* adjust size */
+    background: transparent; /* circle color */
+    border-radius: 50%;
+    border-style: solid;
+    border-width: 0.1em;
+    border-color: #cca044; /* circle border color */
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}

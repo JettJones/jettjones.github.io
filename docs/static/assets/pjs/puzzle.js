@@ -350,7 +350,10 @@ function PuzzleEntry(p, index) {
                 var json = JSON.parse(element.firstChild.textContent);
                 for (const[key, value] of Object.entries(json)) { jsonOptions[key] = value; }
                 element.removeChild(element.firstChild);
-            } catch {}
+            } catch (e) {
+                console.log(e);
+                console.warn("Invalid JSON in puzzle entry:", element.firstChild.textContent);
+            }
         }
 
         return jsonOptions;
