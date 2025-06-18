@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<head>
+    <script type="text/javascript" src="/assets/pjs/puzzle.js"></script>
+    <link rel="stylesheet" href="/assets/pjs/puzzle.css">
+    <link rel="stylesheet" href="/assets/pjs/puzzle-basic-colors.css">
+    <link rel="stylesheet" href="wedding.css">
+
+    <style type="text/css">
+        .bigger {
+            --puzzle-cell-size: 140px;
+        }
+        .bigger  .cell {
+            font-size: 1.1em;
+            text-transform: unset;
+        }
+        .bigger .cell .text {
+            max-width: 80%;
+            padding-left: 12px;
+        }
+        .bigger table {
+            background-image: url("procession_grid.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .bigger .cell[data-spoke-code]:not([data-spoke-code="0"]) { 
+            background: rgba(200,200,200,0.3); 
+            border-radius: 40%;
+        }
+    </style>
+    <script type="text/javascript">
+        replace_text = [
+            "Jane",
+            "Every",
+            "One",
+            "NIN",
+            "Duane",
+            "Facebook",
+            "Tandem",
+            "Tangled",
+            "Australia",
+            "Debussy",
+            "From",
+            "Rice",
+            "I",
+            "Scott",
+            "Enigma",
+            "Band",
+            "Ever",
+            "Everyone",
+            "Redshirts",
+            "I",
+            "Dancers",
+            "Great",
+            "",
+            "Every",
+            "Souls",
+        ];
+        document.addEventListener("DOMContentLoaded", function() {
+            console.log("Procession puzzle loaded");
+            document.querySelectorAll('.puzzle-entry.loaded').forEach(entry => {
+            // Only run once per entry
+            if (!entry.dataset.ringsAdded) {
+                entry.dataset.ringsAdded = "true";
+                replace_index = 0;
+                entry.querySelectorAll('.cell .text span').forEach(span => {
+                    to_find = replace_text[replace_index];
+                    replace_index++;
+                    if (to_find.length === 0) {
+                        return;
+                    }
+                    replacement = "<span class='ring'>" + to_find[0] + "</span>" + to_find.substring(1);
+                    replacement = "<span style='white-space: nowrap;'>" + replacement + "</span>";
+
+                    span.innerHTML = span.innerText.replace(to_find, replacement);
+                });
+            }
+            });
+        });
+    </script>
+    <title>Procession</title>
+
+</head>
+<body>
+<p><span class="title">Procession</span>
+    Follow the path to the altar.  Collect rings along the way to learn "who or what got lost?"
+</p>
+
+<div class="puzzle-entry bigger" data-edge-style="none" data-mode="wordsearch" data-spoke-allowed-directions="+" data-show-commands="true">
+{
+  "data-text": [
+    "ABCDE",
+    "FGHIJ",
+    "KLMNO",
+    "PQRST",
+    "UVWXY"
+  ],
+  "data-text-replacements": {
+    "A": "Jane Austen is one of my favorites!",
+    "B": "The Three Amigos is a great movie Every viewing",
+    "C": "I studied for my One masters at UW",
+    "D": "Bands I like include NIN",
+    "E": "Really, my dad's name is Duane",
+    "F": "I worked at Facebook",
+    "G": "After two years there, Tandem became a Quaker school",
+    "H": "Definitely Tangled is a favorite movie",
+    "I": "Adelaide, Australia is where I spent my junior year",
+    "J": "One of my favorite composers is Debussy",
+    "K": "Listen to me talk, I'm really From Virginia",
+    "L": "At Rice University I acted for two years",
+    "M": "Recently, I visited India",
+    "N": "I had both parents study law, including my father, Scott",
+    "O": "My two favorite words are Shennanigans and Enigma",
+    "P": "In college, I was in one marching Band",
+    "Q": "If Ever in France, I'll speak French. I speak two languages!",
+    "R": "Not Everyone knows I went to Woodinville High",
+    "S": "My two favorite books are Redshirts and Stranger in a Strange Land",
+    "T": "I had three focuses in college: History, French, and Music",
+    "U": "Good Dancers like to Tango",
+    "V": "See Brick, it's a Great movie",
+    "W": ":heart:",
+    "X": "I dance Two step Every chance I get!",
+    "Y": "My favorite videogame is Two Souls"
+  }
+}
+</div>
+<div class="puzzle-entry" data-mode="linear" data-text="................."></div>
+
+</body>
