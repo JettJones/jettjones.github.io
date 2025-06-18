@@ -11,19 +11,12 @@
     margin-bottom: 0.5em;
 }
 
-.wordsearch-color .cell[data-spoke-code]:not([data-spoke-code="0"]) { background: lightgray; }
-
-.big-example {
-    --puzzle-cell-size: 120px;
-}
-
-.big-example  .cell {
-    font-size: 1.2em;
-    text-transform: unset;
-    padding: 0.5em;
+.wordsearch-color .cell[data-spoke-code]:not([data-spoke-code="0"]) { 
+    background: lightgray;
 }
 
 .ring {
+    display: inline-flex;
     position: relative;
     z-index: 1;
 }

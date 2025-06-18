@@ -6,7 +6,26 @@
     <link rel="stylesheet" href="wedding.css">
 
     <style type="text/css">
-
+        .bigger {
+            --puzzle-cell-size: 140px;
+        }
+        .bigger  .cell {
+            font-size: 1.1em;
+            text-transform: unset;
+        }
+        .bigger .cell .text {
+            max-width: 80%;
+            padding-left: 12px;
+        }
+        .bigger table {
+            background-image: url("procession_grid.png");
+            background-size: contain;
+            background-repeat: no-repeat;
+        }
+        .bigger .cell[data-spoke-code]:not([data-spoke-code="0"]) { 
+            background: rgba(200,200,200,0.3); 
+            border-radius: 40%;
+        }
     </style>
     <script type="text/javascript">
         replace_text = [
@@ -42,8 +61,6 @@
             // Only run once per entry
             if (!entry.dataset.ringsAdded) {
                 entry.dataset.ringsAdded = "true";
-                // Your code to add <span class="ring">...</span> goes here
-                // Example: add a ring to the first cell
                 replace_index = 0;
                 entry.querySelectorAll('.cell .text span').forEach(span => {
                     to_find = replace_text[replace_index];
@@ -52,7 +69,7 @@
                         return;
                     }
                     replacement = "<span class='ring'>" + to_find[0] + "</span>" + to_find.substring(1);
-                    //replacement = "<span class='ring'>" + to_find + "</span>";
+                    replacement = "<span style='white-space: nowrap;'>" + replacement + "</span>";
 
                     span.innerHTML = span.innerText.replace(to_find, replacement);
                 });
@@ -65,10 +82,10 @@
 </head>
 <body>
 <p><span class="title">Procession</span>
-    Follow the path to the altar.  <span class="ring">C</span>ollect rings along the way to learn "who or what got lost?"
+    Follow the path to the altar.  Collect rings along the way to learn "who or what got lost?"
 </p>
 
-<div class="puzzle-entry big-example wordsearch-color" data-edge-style="none" data-mode="wordsearch" data-spoke-allowed-directions="+" data-show-commands="true">
+<div class="puzzle-entry bigger" data-edge-style="none" data-mode="wordsearch" data-spoke-allowed-directions="+" data-show-commands="true">
 {
   "data-text": [
     "ABCDE",
@@ -84,7 +101,7 @@
     "D": "Bands I like include NIN",
     "E": "Really, my dad's name is Duane",
     "F": "I worked at Facebook",
-    "G": "After spending two years there, Tandem became a quaker school",
+    "G": "After two years there, Tandem became a Quaker school",
     "H": "Definitely Tangled is a favorite movie",
     "I": "Adelaide, Australia is where I spent my junior year",
     "J": "One of my favorite composers is Debussy",
@@ -96,7 +113,7 @@
     "P": "In college, I was in one marching Band",
     "Q": "If Ever in France, I'll speak French. I speak two languages!",
     "R": "Not Everyone knows I went to Woodinville High",
-    "S": "My two favorite books are -Redshirts and Stranger in a Strange Land",
+    "S": "My two favorite books are Redshirts and Stranger in a Strange Land",
     "T": "I had three focuses in college: History, French, and Music",
     "U": "Good Dancers like to Tango",
     "V": "See Brick, it's a Great movie",
@@ -106,5 +123,6 @@
   }
 }
 </div>
+<div class="puzzle-entry" data-mode="linear" data-text="................."></div>
 
 </body>
